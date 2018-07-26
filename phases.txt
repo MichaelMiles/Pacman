@@ -1,0 +1,13 @@
+Phase 1:
+	Implement the PacMap class and Figure, Ghost classes and fulfill basic 
+	features: 1. Allow the user to control the moving direction of paceman
+	2. allow the ghost to move on its own and choose direction randomly
+	3. Handle the cases when any figures hit the wall
+
+Phase2: 
+	1. fix the problem of randomly move of ghost
+	2. add more ghosts to the map using timer?
+	3. add beans!
+	4. eat beans behavior
+
+phase3: 
