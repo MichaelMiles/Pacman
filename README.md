@@ -1,4 +1,3 @@
-# Pacman
-
-Pacman game implemented using Processing<br/>
-For more information about Processing: https://processing.org/
+#pacman game implemented using Processing
+-- unfinsihed
+For more information about processing, check   processing.org

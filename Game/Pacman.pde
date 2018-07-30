@@ -1,4 +1,4 @@
-// Rehaan Bhimani
+// Michael Fang(Chenyang Fang)
 // 5/08/2018
 // Copyright 2018 UW IGEM
 // This class represents the
@@ -19,11 +19,11 @@ public class Pacman{
   private PImage imageE;
   private PImage imageW;
   
-  /* construct a new Pacman instance
-    @param x is starting x coordinate on map
-    @param y is starting y coordinate on map
-    @param size the default length and width of pacman
-            inside the maze in pixels */
+  // construct a new Pacman instance
+  // @param x is starting x coordinate on map
+  // @param y is starting y coordinate on map
+  // @param size the default length and width of pacman
+  // inside the maze in pixels
   public Pacman(int x,int y){
     // set up images used for representing the pacman
     imageN = loadImage("pacmanN.png");
@@ -41,10 +41,9 @@ public class Pacman{
     yCoord = y;
   }
   
-  
-  /* tests if the movement of Pacman is valid in reference
-     to the map walls, and if it is, updates Pacman location
-     @param map is PacMap instance to reference */
+  // tests if the movement of Pacman is valid in reference
+  // to the map walls, and if it is, updates Pacman location
+  // @param map is PacMap instance to reference
   public void updateXY(PacMap map){
     int testX = xCoord;
     int testY = yCoord;
@@ -65,8 +64,8 @@ public class Pacman{
     } 
   }
   
-  /* changes the direction of Pacman using cardinal directions
-     @param keyDir is character of key pressed ('w','s','a','d') */
+  // changes the direction of Pacman using cardinal directions
+  // @param keyDir is character of key pressed ('w','s','a','d') 
   public void updateDirection(char keyDir){
     if(keyDir == 'w'){
       direction = 1;
@@ -83,12 +82,12 @@ public class Pacman{
     }  
   }
   
-  /* return image of Pacman */
+  // @return the current image representing the pacman
   public PImage getImage(){
     return currentImage; 
   }
   
-  /* draws image of Pacman */
+  // draws image of Pacman
   public void display(){
     image(currentImage, OFFSET  + xCoord * SIZE, OFFSET + yCoord * SIZE); 
   }

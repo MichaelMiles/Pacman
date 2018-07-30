@@ -1,4 +1,4 @@
-// Michael Fang
+// Michael Fang(Chenyang Fang)
 // 4/30/2018
 // Copyright 2018 UW IGEM
 // This program shall create a pacman game for
@@ -26,6 +26,8 @@ void draw() {
 
 
 // listen to user's input
+// responsible for changing the direction of the movement
+// of the pacman according to user's input
 void keyPressed() {
   if (key == 'w' || key == 'W') {
       maze.updateDirection('w');

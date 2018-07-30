@@ -1,12 +1,12 @@
-// Michael Fang
+// Michael Fang(Chenyang Fang)
 // 4/30/2018
 // Copyright 2018 UW IGEM
 // This class represents an entire board
 // of pacman game
 
 public class PacMap{ 
-  private static final int WALL = 0; // used to represent a WALL in two-dimensional array maze
-  private static final int BEAN = 1; // used to represent a bean in two-dimensional array maze
+  private static final int WALL = 0; // a WALL in two-dimensional array maze
+  private static final int BEAN = 1; // a bean in two-dimensional array maze
   private static final int OFFSET = 100; // the offset of the whole map to the left and up boarder of the screen
   private static final int SIZE = 20; // the default size(width and length) of every element in the map in pixels
   private static final int ROW = 12; // number of rows of our two dimensional array map
@@ -32,14 +32,18 @@ public class PacMap{
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
   };
   
-  
+  // initialize the map along with
+  // ghosts and pacman
   public PacMap() {
       this.pacman = new Pacman(1, 1);
       this.ghost1 = new Ghost(41, 2);
   }
-
+  
+  // return the score of the current game
+  // earned by player
+  // @return score
   public int getScore() {
-    return 0;
+    return score;
   }
   
   
