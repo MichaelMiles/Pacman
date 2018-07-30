@@ -11,12 +11,19 @@ public class PacMap{
   private static final int SIZE = 20; // the default size(width and length) of every element in the map in pixels
   private static final int ROW = 12; // number of rows of our two dimensional array map
   private static final int COL = 45; // number of columns of our two dimensional array map
-  private int score; // keeping track of user's score
   
+  // use index to represent different directions
+  private static final int N = 0;
+  private static final int E = 1;
+  private static final int S = 2;
+  private static final int W = 3;
+  
+  private int score; // keeping track of user's score  
   private Pacman pacman;
   private Ghost ghost1;
   
   // two-dimensional array to represent the maze for pacman game
+  // note that the y + 1 represents the second dimension + 1 (y-axis is reverse)
   private int[][] map = {
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
@@ -35,7 +42,7 @@ public class PacMap{
   // initialize the map along with
   // ghosts and pacman
   public PacMap() {
-      this.pacman = new Pacman(1, 1);
+      this.pacman = new Pacman(1, 1, S);
       this.ghost1 = new Ghost(41, 2);
   }
   

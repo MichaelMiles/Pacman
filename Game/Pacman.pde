@@ -10,76 +10,82 @@ public class Pacman{
   private static final int OFFSET = 100; // the offset of the whole map to the left and up boarder of the screen
   private static final int SIZE = 20; // the default size(width and length) of every element in the map in pixels
   
-  private int xCoord;
-  private int yCoord;
-  private int direction; // 1 = N, -1 = S, 2 = E, -2 = W
+  
+  // we use index to represent the direction and the images
+  // -1 = N(index 0), 1 = E(index 1), 1 = S(index 2), -1 = W(index 3)
+  private final int[] direction = {-1, 1, 1, -1};
+  private final PImage[] img = {loadImage("pacmanN.png"), loadImage("pacmanE.png"),
+                  loadImage("pacmanS.png"), loadImage("pacmanW.png")};
+  
+  // coordinates of the pacman in the map, represented by array
+  // index 0: yCoord  index 1: xCoord
+  private int[] coord = new int[2];
+  private int di; // the index to represent the direction
+  // use index to represent the x or y coordinate 
+  // note that we can map from the index of the direction to
+  // the index of the coordinates using mod operator
+  // ex. 0 % 2 = 2 % 2 = 0 -> y coordinate
+  private int axis;
   private PImage currentImage; // resize to 20X20
-  private PImage imageN;
-  private PImage imageS;
-  private PImage imageE;
-  private PImage imageW;
   
   // construct a new Pacman instance
-  // @param x is starting x coordinate on map
-  // @param y is starting y coordinate on map
-  // @param size the default length and width of pacman
+  // initialize fields
+  // @param int x starting x coordinate on map
+  // @param itn y starting y coordinate on map
+  // @param int di the direction the 
   // inside the maze in pixels
-  public Pacman(int x,int y){
-    // set up images used for representing the pacman
-    imageN = loadImage("pacmanN.png");
-    imageS = loadImage("pacmanS.png");
-    imageE = loadImage("pacmanE.png");
-    imageW = loadImage("pacmanW.png");
+  public Pacman(int x,int y, int di){
     // resize the images
-    imageN.resize(SIZE, SIZE);
-    imageS.resize(SIZE, SIZE);
-    imageE.resize(SIZE, SIZE);
-    imageW.resize(SIZE, SIZE);
-    currentImage = imageS;
-    direction = -1;
-    xCoord = x;
-    yCoord = y;
+    for (PImage image : img) {
+      image.resize(SIZE, SIZE);
+    }
+    // uodate di coordinates etc.
+    this.di = di;
+    this.axis = di % 2;
+    coord[0] = y;
+    coord[1]  = x;    
+    currentImage = img[di];
   }
   
   // tests if the movement of Pacman is valid in reference
   // to the map walls, and if it is, updates Pacman location
   // @param map is PacMap instance to reference
   public void updateXY(PacMap map){
-    int testX = xCoord;
-    int testY = yCoord;
-    
-    if(direction == 1){
-      testY -= 1;
-    }else if(direction == -1){
-      testY += 1;
-    }else if(direction == 2){
-      testX -= 1;
-    }else if(direction == -2){
-      testX += 1;
+    if (!checkWall(map, this.di)) {
+      this.coord[this.axis] += this.direction[di];
     }
-    
-    if(!map.checkWall(testX, testY)){
-      xCoord = testX;
-      yCoord = testY;
-    } 
+  }
+  
+  // check if the pacman moves towards the given direction one step will
+  // hit the wall or not
+  // @param PacMap map the map that the current pacman is in
+  // @param int direction the direction that the pacman is heading to
+  // @return true if the pacman will hit the wall, false otherwise
+  public boolean checkWall(PacMap map, int di) {
+    // update the tempXY to check if the step will hit the wall
+    int[] tempXY = {this.coord[0], this.coord[1]}; // make a copy of the cuurent location in the map
+    tempXY[di % 2] += this.direction[di];
+   
+    // use the map's checkWall to implement this function
+    return map.checkWall(tempXY[1], tempXY[0]);
   }
   
   // changes the direction of Pacman using cardinal directions
   // @param keyDir is character of key pressed ('w','s','a','d') 
+  // @require keyDir must be an element of the set ('w', 's', 'a', 'd')
   public void updateDirection(char keyDir){
     if(keyDir == 'w'){
-      direction = 1;
-      currentImage = imageN;
+      this.di = 0;
     }else if(keyDir == 's'){
-      direction = -1;
-      currentImage = imageS;
+      this.di = 2;
     }else if(keyDir == 'a'){
-      direction = 2;
-      currentImage = imageW;
+      this.di = 3;
     }else {
-      direction = -2;
-      currentImage = imageE;
+      this.di = 1;
     }  
+    // update the axis and currentImage
+    this.axis = di % 2;
+    this.currentImage = img[di];
   }
   
   // @return the current image representing the pacman
@@ -89,6 +95,6 @@ public class Pacman{
   
   // draws image of Pacman
   public void display(){
-    image(currentImage, OFFSET  + xCoord * SIZE, OFFSET + yCoord * SIZE); 
+    image(currentImage, OFFSET  + coord[1] * SIZE, OFFSET + coord[0] * SIZE); 
   }
 }
