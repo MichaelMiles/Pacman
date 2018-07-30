@@ -60,7 +60,7 @@ public class PacMap{
   //            move downward. 'a' and 'd' each means pacman
   //            should move left and right
   public void updateDirection(char keyDir) {
-      this.pacman.updateDirection(keyDir);
+      this.pacman.updateDirection(keyDir, this);
   }
   
   

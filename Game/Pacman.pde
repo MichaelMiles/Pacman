@@ -63,7 +63,7 @@ public class Pacman{
   // @return true if the pacman will hit the wall, false otherwise
   public boolean checkWall(PacMap map, int di) {
     // update the tempXY to check if the step will hit the wall
-    int[] tempXY = {this.coord[0], this.coord[1]}; // make a copy of the cuurent location in the map
+    int[] tempXY = this.coord.clone(); // make a copy of the cuurent location in the map
     tempXY[di % 2] += this.direction[di];
    
     // use the map's checkWall to implement this function
@@ -73,19 +73,26 @@ public class Pacman{
   // changes the direction of Pacman using cardinal directions
   // @param keyDir is character of key pressed ('w','s','a','d') 
   // @require keyDir must be an element of the set ('w', 's', 'a', 'd')
-  public void updateDirection(char keyDir){
+  public void updateDirection(char keyDir, PacMap map){
+    int tempDI; // temporary direction
     if(keyDir == 'w'){
-      this.di = 0;
+      tempDI = 0;
     }else if(keyDir == 's'){
-      this.di = 2;
+      tempDI = 2;
     }else if(keyDir == 'a'){
-      this.di = 3;
+      tempDI = 3;
     }else {
-      this.di = 1;
+      tempDI = 1;
     }  
-    // update the axis and currentImage
-    this.axis = di % 2;
-    this.currentImage = img[di];
+    // test if change the direction would make the pacman
+    // hit the wall. If so, the direction remains unchanged
+    // otherwise update the direction and related fields
+    if (!this.checkWall(map, tempDI)) {
+      // update the axis and currentImage
+      this.di = tempDI;
+      this.axis = di % 2;
+      this.currentImage = img[di];
+    }
   }
   
   // @return the current image representing the pacman
