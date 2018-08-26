@@ -1,4 +1,8 @@
-
+// Michael Fang
+// 5/08/2018
+// copyright@ UW IGEM TEAM
+// This class represents the Ghost character which is designed to automatically
+// chase the pacman
 
 public class Ghost{
   
